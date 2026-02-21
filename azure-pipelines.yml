@@ -1,0 +1,21 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+# 1. Add your build step here (e.g., npm install)
+- script: echo "Building project..." 
+  displayName: 'Build Step'
+
+# 2. Snyk task must be listed under 'steps'
+- task: SnykSecurityScan@1
+  inputs:
+    serviceConnectionEndpoint: 'Snyk'
+    testType: 'app'
+    severityThreshold: 'high'
+    monitorWhen: 'always'
+    failOnIssues: true
+    projectName: 'via azure azuredevops'
+    organization: 'd17b8443-2764-47a6-9653-d3bb90cbf888'
